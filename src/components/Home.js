@@ -6,8 +6,8 @@ function Home(){
     const {status,handleStatus,all,complete,incomplete}=useContext(AppContext);
     return (
         <div className="w-[600px] flex flex-col">
-      <div className='w-full mb-4'>
-      <h1 className='text-4xl font-bold mx-auto'>
+      <div className='w-full mb-4 flex'>
+      <h1 className='text-4xl font-bold justify-between text-slate-500'>
         TODO LIST
       </h1>
       </div>
@@ -25,20 +25,20 @@ function Home(){
 
       </div>
 
-      <div>
+      <div className='bg-slate-200 mt-4 p-4'> 
       {
         status==="all" ? (
-            all.map((card,index)=>{
-                return <Card key={index} card={card} />
+            all.map((card)=>{
+                return <Card card={card} />
             })
         ) : (
             status==="complete" ? (
-                complete.map((card,index)=>{
-                return <Card key={index} card={card} />
+                complete.map((card)=>{
+                return <Card card={card} />
             })
             ) : (
-                incomplete.map((card,index)=>{
-                return <Card key={index} card={card} />
+                incomplete.map((card)=>{
+                return <Card card={card} />
             })
             )
         )

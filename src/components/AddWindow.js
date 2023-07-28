@@ -12,8 +12,8 @@ function AddWindow(){
             <input className="text-lg text-slate-500 rounded-md" type="text" name="title" value={addData.title} onChange={handleAddPage}></input>
             </div>
             <div className="flex flex-col mb-4">
-                <label className="text-lg text-slate-500 mb-1">Status</label>
-                <select className="rounded-md text-lg" value={addData.state} onChange={handleAddPage}>
+                <label  htmlFor="state" className="text-lg text-slate-500 mb-1">Status</label>
+                <select name="state" className="rounded-md text-lg" value={addData.state} onChange={handleAddPage}>
                     <option value="incomplete">Incomplete</option>
                     <option value="complete">Completed</option>
                 </select>
