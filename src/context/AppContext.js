@@ -12,7 +12,7 @@ function AppContextProvider({children}){
         index:0
     })
     const [status,setStatus]=useState("all");
-    const [ind,setInd]=useState(0);
+    const [addWind,setAddWind]=useState(false);
 
     function handleStatus(event){
         setStatus(()=>{
@@ -30,20 +30,27 @@ function AppContextProvider({children}){
             return card.index!==id;
         })
         setAll(newAll);
+        let newComplete=complete.filter((card)=>{
+            return card.index!==id;
+        })
+        setComplete(newComplete);
+        let newIncomplete=incomplete.filter((card)=>{
+            return card.index!==id;
+        })
+        setIncomplete(newIncomplete);
       }
 
     function AddHandler(event){
         event.preventDefault();
         const uniq=uuid();
-        setAddData((prev)=>{
-            return {...prev,[addData.state]:uniq}
-        })
-        setAll([...all,addData]);
+        const newData={...addData,index:uniq};
+        setAddData(newData);
+        setAll([...all,newData]);
         if(addData.state==="complete")
-        setComplete([...complete,addData]);
+        setComplete([...complete,newData]);
         else if(addData.state==="incomplete")
-        setIncomplete([...incomplete,addData]);
-        
+        setIncomplete([...incomplete,newData]);   
+        setAddWind(!addWind);
     }
     const value={
         all,
@@ -60,8 +67,8 @@ function AppContextProvider({children}){
         handleAddPage,
         AddHandler,
         taskRemover,
-        ind,
-        setInd
+        addWind,
+        setAddWind
     }
     return <AppContext.Provider value={value}>
         {children}

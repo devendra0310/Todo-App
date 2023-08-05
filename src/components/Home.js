@@ -1,31 +1,35 @@
 import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import Card from './Card';
+import Empty from './Empty';
 
 function Home(){
-    const {status,handleStatus,all,complete,incomplete}=useContext(AppContext);
+    const {status,handleStatus,all,complete,incomplete,addWind,setAddWind}=useContext(AppContext);
+    const a=all.length;
+    const b=complete.length;
+    const c=incomplete.length;
     return (
-        <div className="w-[600px] flex flex-col">
-      <div className='w-full mb-4 flex'>
-      <h1 className='text-4xl font-bold justify-between text-slate-500'>
+        <div className={` flex justify-center ${addWind ? 'opac' : ''} `}>
+          <div className='w-[700px] flex flex-col mt-6'>
+      <div className='w-[700px] mb-8 flex justify-center'>
+      <h className='text-5xl font-bold text-slate-500'>
         TODO LIST
-      </h1>
+      </h>
       </div>
       <div className='flex justify-between'>
-        <div className='bg-blue-500 text-white p-2 rounded-md'>
-        <button>
+        <div className='bg-blue-500 text-white p-2 rounded-md text-xl' >
+        <button onClick={()=>{setAddWind(!addWind);}}>
           Add Task
         </button>
         </div>
-          <select className='bg-red-500 text-white p-2 rounded-md' name='status' value={status} onChange={handleStatus}>
+          <select className='bg-gray-300 text-white p-2 rounded-md text-xl' name='status' value={status} onChange={handleStatus}>
           <option value="all">All</option>
           <option value="complete">Completed</option>
           <option value="incomplete">Incomplete</option>
           </select>
 
       </div>
-
-      <div className='bg-slate-200 mt-4 p-4'> 
+      <div className='bg-gray-100 mt-6 p-4 flex flex-col items-center rounded-md'> 
       {
         status==="all" ? (
             all.map((card)=>{
@@ -37,14 +41,24 @@ function Home(){
                 return <Card card={card} />
             })
             ) : (
-                incomplete.map((card)=>{
+                  incomplete.map((card)=>{
                 return <Card card={card} />
             })
             )
         )
       }
+      {
+        a===0 && status==="all" ? (<Empty/>) : (<div></div>)
+      }
+      {
+        b===0 && status==="complete" ? (<Empty/>) : (<div></div>)
+      }
+      {
+        c===0 && status==="incomplete" ? (<Empty/>) : (<div></div>)
+      }
       </div>
     </div>
+        </div>
     )
 }
 

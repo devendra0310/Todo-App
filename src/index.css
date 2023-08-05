@@ -20,3 +20,6 @@ code {
 .line{
   text-decoration: line-through;
 }
+.opac{
+  opacity:0.5;
+}
